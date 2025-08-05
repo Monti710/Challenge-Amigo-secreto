@@ -11,13 +11,16 @@ Validar la entrada: Implementar una validación para asegurarse de que el campo 
 Actualizar el array de amigos: Si el valor es válido, añadirlo al arreglo que almacena los nombre de amigos usando el método.push().
 
 Limpiar el campo de entrada: Después de añadir el nombre, restablecer el campo de texto a una cadena vacía. */
-function agregarAmigo(nombre) {
-    nombre = document.getElementById("amigo").value;
-    if(nombre === ""  ){
-        alert("Por favor, inserte un nombre de forma correcta");
+function agregarAmigo() {
+    const input =  document.getElementById("amigo");
+    const nombre = input.value.trim();
+    if(nombre === ""){
+        alert("Por favor, inserte un nombre.");
+        return;
     }else{
         amigos.push(nombre) 
-        document.getElementById("amigo").value = "";
+        input.value = "";
+        document.getElementById("resultado").innerHTML = "";
         mostrarAmigos();
     }
 }
@@ -34,11 +37,11 @@ Iterar sobre el arreglo: Usa un bucle for para recorrer el arreglo amigos y crea
 
 Agregar elementos a la lista: Para cada amigo, crear un nuevo elemento de lista. */
 function mostrarAmigos() {
-    lista = document.getElementById("listaAmigos");
+    const lista = document.getElementById("listaAmigos");
     lista.innerHTML = ""
 
-    for(let i = 0; i <= amigos.length; i++){
-       let  item = document.createElement("li");
+    for(let i = 0; i < amigos.length; i++){
+       const item = document.createElement("li");
        item.textContent = amigos[i];
        lista.appendChild(item);
     }
@@ -52,18 +55,19 @@ Obtener el nombre sorteado: Utilizar el índice aleatorio para acceder al nombre
 
 Mostrar el resultado: Actualizar el contenido del elemento de resultado utilizando document.getElementById()  e innerHTML para mostrar el amigo sorteado. */
 
-function sortearAmigo() {let resultado = document.getElementById("resultado");
-    resultado
+function sortearAmigo() {
+    const resultado = document.getElementById("resultado");
     
     if(amigos.length === 0){
         alert("No puedes sortear un amigo secreto la lista todavia se encuentra vacia");
-        return
+        return;
     }
 
-    let indiceAleatorio = Math.floor(Math.random()* amigos.length)
-    let nombreSorteado = amigos[indiceAleatorio];
+    const indiceAleatorio = Math.floor(Math.random()* amigos.length);
+    const nombreSorteado = amigos[indiceAleatorio];
+
+    resultado.innerHTML = `El amigo secreto es ${nombreSorteado}`
     document.getElementById("listaAmigos").innerHTML = "";
-    amigos = []
-    document.getElementById("resultado").innerHTML = `El amigo secreto es: ${nombreSorteado}`;
+    amigos = [];
 
 }
